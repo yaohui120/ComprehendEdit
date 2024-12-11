@@ -21,23 +21,23 @@ The dataset can be downloaded from this.
 The dataset is organized as follows:
 ```
 |——ComprehendEdit/   
-|  |——data/
-|  |  |——GQA/
-|  |  |  |——images/
-|  |  |  |  |——21.jpg
-|  |  |  |  |——...
-|  |  |——MathVista/
-|  |  |  |——images/
-|  |  |——TallyQA/
-|  |  |  |——VG_100K/            
-|  |  |  |——VG_100K_2/
-|  |  |——TextVQA/
-|  |  |  |——train_images/
-|  |  |——VSR/
-|  |  |  |——images/
-|  |——ComprehendEdit_train.json          
-|  |——ComprehendEdit_test.json
-|  |——ComprehendEdit_ori_right.json
+|  |——GQA/
+|  |  |——images/
+|  |  |  |——21.jpg
+|  |  |  |——...
+|  |——MathVista/
+|  |  |——images/
+|  |——TallyQA/
+|  |  |——VG_100K/            
+|  |  |——VG_100K_2/
+|  |——TextVQA/
+|  |  |——train_images/
+|  |——VSR/
+|  |  |——images/
+|  |——val2014/
+|——ComprehendEdit_train.json          
+|——ComprehendEdit_test.json
+|——ComprehendEdit_ori_right.json
 ```
 
 The details of ComprehendEdit is shown in following table:

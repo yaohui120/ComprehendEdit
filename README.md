@@ -55,7 +55,7 @@ The details of ComprehendEdit is shown in following table:
 The ratio of training data to test data in each task is approximately 3:1, and we also utilize samples from the NQ dataset and OK-VQA dataset to measure text locality
 (T-L) and multimodal locality (M-L).
 
-This dataset is collected from several benchmarks using BLIP-2 OPT 2.7B and MiniGPT-4 7B. We recommand measuring the changes on top-10 prediction on locality samples before and after editing, if you want run other models on ComprehendEdit. We will update the results in months.
+This dataset is collected from several benchmarks using BLIP-2 OPT 2.7B and MiniGPT-4 7B. We recommand measuring the changes on top-10 prediction on locality samples before and after editing if you want to run other models on ComprehendEdit. We will update the results in months.
 
 This project is built based on the EasyEdit, thanks for the framework provided by [EasyEdit](https://github.com/zjunlp/EasyEdit), datasets [GQA](https://cs.stanford.edu/people/dorarad/gqa/index.html), [TallyQA](https://github.com/manoja328/TallyQA_dataset), [VSR](https://github.com/cambridgeltl/visual-spatial-reasoning), [TextVQA](https://textvqa.org/), [MathVista](https://github.com/lupantech/MathVista), [OKVQA](https://okvqa.allenai.org/), and [NQ dataset](https://github.com/google-research-datasets/natural-questions).
 

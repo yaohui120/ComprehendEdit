@@ -14,7 +14,7 @@ We introduce **ComprehendEdit**, a comprehensive benchmark with enhanced metrics
 | Total                | 8439  | 8164    | 17932          |
 
 ## Getting Started
-
+### Details of Dataset    
 The dataset can be downloaded from this.
 
 The dataset is organized as follows:
@@ -36,11 +36,36 @@ The dataset is organized as follows:
 |  |——val2014/
 |——ComprehendEdit_train.json          
 |——ComprehendEdit_test.json
-|——ComprehendEdit_ori_right.json
+|——ComprehendEdit_ori_right.json          
+```
+
+The format of each sample in test set is
+```
+[{
+"image": "GQA/images/2405722.jpg",
+"question": "What is this bird called?",
+"rephrase": "What is the bird's name?", # for Text-Generality
+"answer": "parrot",
+"source": "GQA",  
+"Category": "object recognition",
+"pid": 0,
+"img_topk": [...],  # pid of the image topk nearest samples in test set
+"txt_topk": [...],  # pid of the text topk nearest samples in test set
+"img_last_topk": [...], # pid of the image topk farthest samples in test set
+"txt_last_topk": [...], # pid of the text topk farthest samples in test set
+"ori_rt_img_topk": [...], # pid of the image topk nearest samples in ComprehendEdit_ori_right.json
+"ori_rt_txt_topk": [...], # pid of the text topk nearest samples in ComprehendEdit_ori_right.json
+"ori_rt_img_last_topk": [...], # pid of the image topk farthest samples in ComprehendEdit_ori_right.json
+"ori_rt_txt_last_topk": [...], # pid of the text topk farthest samples in ComprehendEdit_ori_right.json
+"locality_prompt": "when does twice upon a time come out", # for Text-Locality
+"locality_ground_truth": "...",
+"multimodal_locality_image": "...", # for Multimodal-Locality
+"multimodal_locality_prompt": "...",
+"multimodal_locality_ground_truth": "..."}, ...]
 ```
 
 The details of ComprehendEdit is shown in following table:
-| Task                 | Train | Test | Source |
+| Task                 | Train | Test | Source |  
 | -------------------- | ----- | ---- | -------- |
 | Object Recognition   | 1471  | 491  | GQA      |
 | Object Attributes    | 2227  | 735  | GQA      |
@@ -52,11 +77,13 @@ The details of ComprehendEdit is shown in following table:
 | Text Recognition     | 634   | 212  | MathVista|
 | Total                | 13450 | 4482 |          |
 
-The ratio of training data to test data in each task is approximately 3:1, and we also utilize samples from the NQ dataset and OK-VQA dataset to measure text locality
-(T-L) and multimodal locality (M-L).
+The ratio of training data to test data in each task is approximately 3:1, and we also utilize samples from the NQ dataset and OK-VQA dataset to measure text locality (T-L) and multimodal locality (M-L).
 
 This dataset is collected from several benchmarks using BLIP-2 OPT 2.7B and MiniGPT-4 7B. We recommand measuring the changes on top-10 prediction on locality samples before and after editing if you want to run other models on ComprehendEdit. We will update the results in months.
 
-This project is built based on the EasyEdit, thanks for the framework provided by [EasyEdit](https://github.com/zjunlp/EasyEdit), datasets [GQA](https://cs.stanford.edu/people/dorarad/gqa/index.html), [TallyQA](https://github.com/manoja328/TallyQA_dataset), [VSR](https://github.com/cambridgeltl/visual-spatial-reasoning), [TextVQA](https://textvqa.org/), [MathVista](https://github.com/lupantech/MathVista), [OKVQA](https://okvqa.allenai.org/), and [NQ dataset](https://github.com/google-research-datasets/natural-questions).
+### Evaluation
+
+
+The code is built based on the EasyEdit, thanks for the framework provided by [EasyEdit](https://github.com/zjunlp/EasyEdit)! The samples in ComprehendEdit comes from several datasets: [GQA](https://cs.stanford.edu/people/dorarad/gqa/index.html), [TallyQA](https://github.com/manoja328/TallyQA_dataset), [VSR](https://github.com/cambridgeltl/visual-spatial-reasoning), [TextVQA](https://textvqa.org/), [MathVista](https://github.com/lupantech/MathVista), [OKVQA](https://okvqa.allenai.org/), and [NQ dataset](https://github.com/google-research-datasets/natural-questions). Thanks for these outstanding works!
 
 Please cite our paper if you use ComprehendEdit in your work.

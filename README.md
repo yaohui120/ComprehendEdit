@@ -75,7 +75,7 @@ The format of each sample in test set is
 ```
 
 The details of ComprehendEdit is shown in following table:
-| Task                 | Train | Test | Source |  
+| Task                 | Train | Test | Source |
 | -------------------- | ----- | ---- | -------- |
 | Object Recognition   | 1471  | 491  | GQA      |
 | Object Attributes    | 2227  | 735  | GQA      |

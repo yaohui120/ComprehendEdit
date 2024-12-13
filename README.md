@@ -13,9 +13,19 @@ We introduce **ComprehendEdit**, a comprehensive benchmark with enhanced metrics
 | Text Recognition     | 8     | 0       | 2073           |
 | Total                | 8439  | 8164    | 17932          |
 
+ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown in following figure:
+<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/intro2_2.png" width="60%">
+
+
+
 ## Getting Started
 ### Details of Dataset    
-The dataset can be downloaded from this.
+The dataset can be downloaded from this.              
+
+Here are some samples of ComprehendEdit:
+<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/ilustrations.png" width="80%">
+
+**Q, G, P, S, C** mean Question, Ground-truth, Prediction, Source, task Category independently.
 
 The dataset is organized as follows:
 ```

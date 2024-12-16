@@ -11,12 +11,12 @@ We introduce **ComprehendEdit**, a comprehensive benchmark with enhanced metrics
 | Numerical Inference  | 23    | 0       | 846            |
 | Spatial Relationship | 16    | 1       | 2239           |
 | Text Recognition     | 8     | 0       | 2073           |
+
 | Total                | 8439  | 8164    | 17932          |
 
 ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown in following figure:
 
-<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration1.png" width="60%">
-
+<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration_1.png" width="60%">
 
 ## Getting Started
 ### Details of Dataset    
@@ -24,7 +24,7 @@ The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DH
 
 Here are some samples of ComprehendEdit:
 
-<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration2.png" width="60%">
+<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration_2.png" width="60%">
 
 **Q, G, P, S, C** mean Question, Ground-truth, Prediction, Source, task Category independently.
 

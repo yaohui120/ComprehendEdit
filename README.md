@@ -14,8 +14,8 @@ We introduce **ComprehendEdit**, a comprehensive benchmark with enhanced metrics
 | Total                | 8439  | 8164    | 17932          |
 
 ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown in following figure:
-<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/intro2_2.png" width="60%">
 
+<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration1.png" width="60%">
 
 
 ## Getting Started
@@ -23,7 +23,8 @@ ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown
 The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DHUOgAewaMg?pwd=6phx).
 
 Here are some samples of ComprehendEdit:
-<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/ilustrations.png" width="80%">
+
+<img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration2.png" width="60%">
 
 **Q, G, P, S, C** mean Question, Ground-truth, Prediction, Source, task Category independently.
 

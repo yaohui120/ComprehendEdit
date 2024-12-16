@@ -20,7 +20,7 @@ ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown
 
 ## Getting Started
 ### Details of Dataset    
-The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DHUOgAewaMg?pwd=6phx).                 
+The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DHUOgAewaMg?pwd=6phx).
 
 Here are some samples of ComprehendEdit:
 <img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/ilustrations.png" width="80%">

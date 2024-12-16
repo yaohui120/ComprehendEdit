@@ -11,7 +11,6 @@ We introduce **ComprehendEdit**, a comprehensive benchmark with enhanced metrics
 | Numerical Inference  | 23    | 0       | 846            |
 | Spatial Relationship | 16    | 1       | 2239           |
 | Text Recognition     | 8     | 0       | 2073           |
-
 | Total                | 8439  | 8164    | 17932          |
 
 ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown in following figure:

@@ -91,8 +91,10 @@ The ratio of training data to test data in each task is approximately 3:1, and w
 
 This dataset is collected from several benchmarks using BLIP-2 OPT 2.7B and MiniGPT-4 7B. We recommand measuring the changes on top-10 prediction on locality samples before and after editing if you want to run other models on ComprehendEdit. We will update the results in months.
 
+### Import Dataset   
+Working in progress...
 ### Evaluation
-
+Working in progress...
 
 The code is built based on the EasyEdit, thanks for the framework provided by [EasyEdit](https://github.com/zjunlp/EasyEdit)! The samples in ComprehendEdit comes from several datasets: [GQA](https://cs.stanford.edu/people/dorarad/gqa/index.html), [TallyQA](https://github.com/manoja328/TallyQA_dataset), [VSR](https://github.com/cambridgeltl/visual-spatial-reasoning), [TextVQA](https://textvqa.org/), [MathVista](https://github.com/lupantech/MathVista), [OKVQA](https://okvqa.allenai.org/), and [NQ dataset](https://github.com/google-research-datasets/natural-questions). Thanks for these outstanding works!
 

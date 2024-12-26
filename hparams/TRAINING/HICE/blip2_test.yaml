@@ -1,0 +1,21 @@
+alg_name: "IKE"
+name: /home/myh/hugging_cache/opt-2.7b
+model_name: blip2
+tokenizer_class: GPT2Tokenizer
+tokenizer_name: /home/myh/hugging_cache/opt-2.7b
+sentence_model_name: /home/myh/hugging_cache/all-MiniLM-L6-v2
+device: 4
+results_dir: "./results"
+
+k: 16
+
+# Multimodal
+exact_match: True
+task_name: "comprehendedit"
+qformer_checkpoint: /home/myh/hugging_cache/blip2_pretrained_opt2.7b.pth
+qformer_name_or_path: /home/myh/hugging_cache/bert-base-uncased
+state_dict_file: /home/myh/hugging_cache/eva_vit_g.pth
+
+# image
+coco_image: /home/myh/Datasets/MMEdit
+rephrase_image: /home/myh/Datasets/MMEdit

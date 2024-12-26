@@ -1,0 +1,25 @@
+alg_name: "IKE"
+name: /home/myh/hugging_cache/Vicuna-7b1 ## !!Attention: Please use vicuna-v0 from Hugging Face by Vision-CAIR/vicuna-7b
+model_name: minigpt4
+tokenizer_class: LlamaTokenizer
+tokenizer_name: /home/myh/hugging_cache/Vicuna-7b1
+sentence_model_name: /home/myh/hugging_cache/all-MiniLM-L6-v2
+device: 0
+model_parallel: true
+gpu_used_id: [0]
+gpu_split: []
+results_dir: "./results"
+
+k: 32
+
+# Multimodal
+exact_match: True
+task_name: "comprehendedit" # vqa, comprehendedit
+qformer_checkpoint: /home/myh/hugging_cache/blip2_pretrained_flant5xxl.pth
+qformer_name_or_path: /home/myh/hugging_cache/bert-base-uncased
+state_dict_file: /home/myh/hugging_cache/eva_vit_g.pth
+pretrained_ckpt: /home/myh/hugging_cache/pretrained_minigpt4_7b.pth
+
+# image
+coco_image: /home/myh/Datasets/MMEdit
+rephrase_image: /home/myh/Datasets/MMEdit

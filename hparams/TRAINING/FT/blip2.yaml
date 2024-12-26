@@ -1,0 +1,95 @@
+# Model
+alg_name: FT
+device: 4
+model_parallel: true
+gpu_used_id: [4] # [0, 1, 2], [3, 4, 5, 6, 7]
+gpu_split: [] #['layers.1'] # ['layers.1', 'layers.11', 'layers.21', 'layers.31'] # ['layers.11', 'layers.27'], ['layers.4', 'layers.13', 'layers.22', 'layers.31']
+task: comprehendedit # TextVQA, VQA or Cap, vlkeb, comprehendedit
+
+name: /home/myh/hugging_cache/opt-2.7b
+model_name: blip2
+model_class: Blip2OPT
+tokenizer_class: GPT2Tokenizer
+tokenizer_name: /home/myh/hugging_cache/opt-2.7b
+inner_params:
+- opt_model.model.decoder.layers.31.fc1.weight
+- opt_model.model.decoder.layers.31.fc2.weight
+# - visual_encoder.blocks.36.mlp.fc1.weight
+# - visual_encoder.blocks.36.mlp.fc2.weight
+# - visual_encoder.blocks.37.mlp.fc1.weight
+# - visual_encoder.blocks.37.mlp.fc2.weight
+# - visual_encoder.blocks.38.mlp.fc1.weight
+# - visual_encoder.blocks.38.mlp.fc2.weight
+# - Qformer.bert.encoder.layer.11.attention.output.dense.weight
+# - Qformer.bert.encoder.layer.11.intermediate_query.dense.weight
+# - Qformer.bert.encoder.layer.11.output_query.dense.weight
+
+
+
+# Method
+alg: FT
+num_steps: 10 # 20 # 4 #15
+lr: 1e-6 # 1e-1
+edit_lr: 2e-2 #2e-4 1e-6
+lr_lr: 1e-4
+seed: 42
+cedit: 0.1
+iedit: 0 # our data has no image_rephrase
+cloc: 1.0
+cbase: 1.0
+dropout: 0.0
+train_base: False
+no_grad_layers: null
+one_sided: False
+n_hidden: 1
+hidden_dim: null
+init: id
+norm: True
+combine: True
+x_only: False
+delta_only: False
+act: relu
+rank: 1920
+mlp_class: IDMLP
+shared: True
+archive: null #/home/myh/EasyEdit-main/results/models/FT/blip2_vqa # null
+
+# continual
+num_tasks: 8 #10
+sequence_len: 10
+
+# Train
+batch_size: 1
+model_save_pt: 5000
+silent: False
+#max_epochs: 1
+max_iters: 30000
+log_interval: 100
+eval_log_interval: 5000
+final_eval: True
+val_interval: 5000
+early_stop_patience: 20000
+early_stop_key: "loss/total_edit_val"
+eval_only: False
+half: False
+debug: False
+save: False
+verbose: True
+
+val_batch_size: 1
+accumulate_bs: 2
+val_steps: 500 # only for debug
+opt: Adam #Adam
+grad_clip: 100.
+
+# Output
+results_dir: ./results
+
+# Multimodal
+exact_match: True
+qformer_checkpoint: /home/myh/hugging_cache/blip2_pretrained_opt2.7b.pth
+qformer_name_or_path: /home/myh/hugging_cache/bert-base-uncased
+state_dict_file: /home/myh/hugging_cache/eva_vit_g.pth
+# image
+coco_image: /home/myh/Datasets/MMEdit
+rephrase_image: /home/myh/Datasets/MMEdit

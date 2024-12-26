@@ -20,8 +20,6 @@ def get_model_key(model_name):
         key = ['model.embed_tokens'] + ['model.layers.'+str(i) for i in range(32)] + ['model.norm', 'lm_head']
     elif 'vicuna-13b' in model_name:
         key = ['model.embed_tokens'] + ['model.layers.'+str(i) for i in range(40)] + ['model.norm', 'lm_head']
-    # elif 'Llama-2-7b' in model_name:
-    #     key = 
     else:
         return 'auto'
     for k in key:
@@ -35,13 +33,12 @@ def get_device_map(device_map, hparams):
     index = 0
     for (k, _) in device_map.items():
         if len(hparams.gpu_split) == 0:
-            device_map[k] = hparams.device #hparams.gpu_used_id[index]
+            device_map[k] = hparams.device
         else:
             for j in range(len(hparams.gpu_split)):
                 if hparams.gpu_split[j] in k and k[-2] == hparams.gpu_split[j][-2]:
                     index += 1
             device_map[k] = hparams.gpu_used_id[index]
-    # device_map = device_map if len(hparams.gpu_used_id) != 4 else 'auto'
     print(device_map)
     return device_map
 
@@ -53,7 +50,6 @@ def print_dict_info(d):
             print(key,': ',d[key])
             
 def get_model_intervene_module_name(model_name):
-    # blip2, minigpt4测试通过
     res = []
     if 'opt-2.7b' in model_name:
         for i in range(32):
@@ -79,8 +75,6 @@ def get_model_intervene_module_name(model_name):
             res += [layer + '.self_attn', layer + '.mlp']
     else:
         print('Not define the layers to intervene!')
-        import pdb
-        # pdb.set_trace()
     res_module = [i.replace('[', '.') for i in res]
     res_module = [i.replace(']', '') for i in res_module]
     return res, res_module

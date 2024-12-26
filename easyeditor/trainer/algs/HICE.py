@@ -64,7 +64,6 @@ class HICE(EditableModel):
         self.sentences = cache_sentences if cache_sentences is not None else []
         self.sentences_embed = cache_sentences_embed if cache_sentences_embed is not None else []
         
-        # 用于提取文本embedding的模型
         self.sentence_model = sentence_model if sentence_model is not None else SentenceTransformer(config.sentence_model_name).to(f'cuda:{config.device}')
         self.classifier = classifier if classifier is not None else nn.Linear(self.embed_dim, self.class_num) # clip 32:512
         
@@ -77,7 +76,6 @@ class HICE(EditableModel):
         self.W_rand = W_rand if W_rand is not None else torch.randn(self.embed_dim, M).to(self.config.device)
         self.Wo = Wo if Wo is not None else None
         
-        # 编辑目标的近邻样本
         self.icl_examples = icl_examples if icl_examples is not None else []
         self.tok = self.model.llama_tokenizer if 'vicuna' in self.config.name.lower() else self.model.opt_tokenizer
         self.edit_sample = edit_sample if edit_sample is not None else []
@@ -85,7 +83,6 @@ class HICE(EditableModel):
         self.classifier.to(self.config.device)
         for name, params in self.classifier.named_parameters():
             params.requires_grad = True
-        self.label_map = {'gqa':1, 'tallyqa':2, 'vsr':3, 'textvqa':4, 'mathvista':5}
         self.G, self.Q = 0, 0
         
     def state_dict(self, destination=None, prefix="", keep_vars=False):
@@ -289,8 +286,6 @@ class HICE(EditableModel):
         # [ori_class, edit_class]
         if self.class_num == 2:
             classifer_label = [0] if 'locality' in inputs['cat'] else [1]
-        else:
-            classifer_label = [self.label_map[inputs['source'][0].lower()]] if 'source' in inputs.keys() else [0]
         classifer_label = torch.tensor(classifer_label).to(self.config.device)
         
         if train:
@@ -309,36 +304,6 @@ class HICE(EditableModel):
         logits, preds, fea, query_embedding = self.run_classifier2(inputs, mloc_memory=mloc_memory)
         # loss = F.cross_entropy(logits, classifer_label)
         loss = 0.
-        
-        # 原始模型跑loc, loc_img; if is loc sample. 
-        if len(self.edit_sample) == 0 or preds == 0:
-            # 未编辑时直接用原模型的输出
-            # outputs = self.forward_ori(inputs, **kwargs)
-            return OurOutput(
-                # logits=outputs.logits,
-                # labels=outputs.labels,
-                # attention_mask=outputs.attention_mask,
-                fea=fea,
-                embeddings=query_embedding,
-                labels=classifer_label,
-                loss=loss,
-                fc_labels=classifer_label,
-                fc_preds=preds,
-            )
- 
-        # 如果在域内
-        # attn_mask = None
-        # prompt = self.edit_sample['prompt'][0]
-        # target = self.edit_sample['target'][0]
-        
-        # image = inputs["image"] if "image" in inputs.keys() else None
-        # qs = inputs["prompt"][0]
-        # targets = inputs["target"][0]
-        
-        # assert len(self.icl_examples) != 0
-        # new_fact = f'New Fact: {prompt} {target}\nPrompt: {qs}'
-        # samples = prepare_multimodal_edit(self.config, self.tok, targets, [''.join(self.icl_examples) + f'{new_fact}'], image)
-        # logits, labels, attn_mask = self.compute_multimodal_edit_quality(self.model, samples, self.config.exact_match)
         
         # from ..blip2_models.mini_gpt4 import MiniGPTOutput
         return OurOutput(
@@ -529,8 +494,6 @@ class HICE(EditableModel):
             logging.info('{} test acc={}'.format(keys[k], np.round(tt.cpu().numpy(), decimals=4)))
         print('memory size=',len(memory['qs']))
         memory['embeddings'] = [tt.cpu() for tt in memory['embeddings']]
-        import pdb
-        # pdb.set_trace()
         return memory
 
 

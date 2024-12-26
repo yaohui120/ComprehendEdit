@@ -146,10 +146,6 @@ def train_FT(model='blip2', train=True):
         val_set=eval_ds
     )
 
-    # debug_()
-    # trainer.test_on_ori_right()
-    # pdb.set_trace()
-    
     if train:
         print('Start Training...')
         trainer.run()

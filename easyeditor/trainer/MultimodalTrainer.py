@@ -119,18 +119,18 @@ class MultimodalTrainer(BaseTrainer):
             l_loc = kl_loc_loss(base_logits.detach(), post_base_logits, mask=kl_mask)
             l_image_loc = kl_loc_loss(base_image_logits.detach(), post_image_base_logits, mask=kl_image_mask)
 
-        # if l_edit.isnan():
-        #     print("l_edit is nan")
-        #     print("input: ", batch["edit_outer"]['text_input'])
-        # elif l_image_edit.isnan():
-        #     print("l_image_edit is nan")
-        #     print("input: ", batch["edit_outer_image"]['text_input'])
-        # elif l_loc.isnan():
-        #     print("l_loc is nan")
-        #     print("input: ", batch["loc"]['text_input'])
-        # elif l_image_loc.isnan():
-        #     print("l_image_loc is nan")
-        #     print("input: ", batch["loc_image"]['text_input'])
+        if l_edit.isnan():
+            print("l_edit is nan")
+            print("input: ", batch["edit_outer"]['text_input'])
+        elif l_image_edit.isnan():
+            print("l_image_edit is nan")
+            print("input: ", batch["edit_outer_image"]['text_input'])
+        elif l_loc.isnan():
+            print("l_loc is nan")
+            print("input: ", batch["loc"]['text_input'])
+        elif l_image_loc.isnan():
+            print("l_image_loc is nan")
+            print("input: ", batch["loc_image"]['text_input'])
 
         if self.config.alg == "SERAC_MULTI":
             l_total_edit = self.config.cedit * l_edit + self.config.cloc * l_loc + self.config.iedit * l_image_edit
@@ -328,9 +328,6 @@ class MultimodalTrainer(BaseTrainer):
                     with torch.no_grad():
                         key_output = self.model.edit_loss_fn(self.config, key_post_edit_logits, key_post_batch_labels, multimodal=True)
                     
-                    # t_pred.append([key_output['pred'][key_output['pred']!=0]])
-                    # t_targ.append([key_output['targ'][key_output['targ']!=0]])
-                    # t_acc.append(key_output['acc'].cpu())
                     if 'ori' in key: # KPI
                         t_targ.append([sample[f'ori_pred_{self.config.model_name.lower()}']])
                     else: # KGI
@@ -341,8 +338,8 @@ class MultimodalTrainer(BaseTrainer):
                     sample['image'] = sample['image'].cpu()
                     torch.cuda.empty_cache()
                 res_acc[key] = t_acc
-                res_pred[key] = t_pred #[tokenizer.batch_decode(txt, skip_special_tokens=True) for txt in t_pred]
-                targ[key] = t_targ #[tokenizer.batch_decode(txt, skip_special_tokens=True) for txt in t_targ]
+                res_pred[key] = t_pred
+                targ[key] = t_targ
                 info_dict[key+'/acc'] = sum(res_acc[key])/len(res_acc[key])
             
             info_dict["general_dict_acc"] = res_acc
@@ -480,31 +477,6 @@ class MultimodalTrainer(BaseTrainer):
         stats["eval_time/average"] = elapsed / steps
 
         return stats
-
-    def test_on_ori_right(self,):
-        self.config.device = 0
-        self.tokenizer = self.model.model.opt_tokenizer if self.config.model_name == 'blip2' else self.model.model.llama_tokenizer
-        preds, targs, acc_old = [], [], []
-        # LOG.info(f"{len(self.val_set.ori_right)} samples in total")
-        # for step, batch in enumerate(self.val_set.ori_right):
-        LOG.info(f"{len(self.val_set.all_edit_inner)} samples in total")
-        for step, batch in enumerate(self.val_set.all_edit_inner):
-            if (step+1)%100 == 0:
-                LOG.info(f"Dealed {step+1} samples")
-            batch['image'] = batch['image'].to(self.config.device)
-            # _, _, post_edit_dict = self.get_outputs(self.model, batch, multimodal=True)
-            pred, targ, post_edit_dict = self.get_predict(self.model, batch, multimodal=True)
-            batch['image'] = batch['image'].cpu()
-            torch.cuda.empty_cache()
-            # preds.append(pred)
-            preds.append(post_edit_dict['pred'][post_edit_dict['pred']!=0])
-            targs.append(targ)
-            acc_old.append(post_edit_dict['acc'])
-            # import pdb
-            # pdb.set_trace()
-        torch.save({'preds':preds, 'targs':targs, 'acc_old':acc_old}, 'comprehendedit_all_inner_test_{}.pth'.format(self.config.model_name.lower()))
-        import pdb
-        pdb.set_trace()
 
     def get_outputs(self, model, data, multimodal=True, grad=False, hidden_states=False):
         with torch.set_grad_enabled(grad):

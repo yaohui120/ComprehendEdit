@@ -3,7 +3,7 @@ device: 4
 model_parallel: true
 gpu_used_id: [4] #[1, 2]
 gpu_split: [] #['layers.6']
-task: comprehendedit # VQA or Cap, comprehendedit
+task: comprehendedit # vqa, comprehendedit
 
 name: /home/myh/hugging_cache/opt-2.7b
 model_name: blip2
@@ -14,7 +14,6 @@ tokenizer_name: /home/myh/hugging_cache/opt-2.7b
 cls_name: /home/myh/hugging_cache/distilbert-base-cased
 cls_class: AutoModel
 sentence_model_name: /home/myh/hugging_cache/all-MiniLM-L6-v2
-# sentence_model_name: /mnt/Data/myh/EasyEdit-main/hugging_cache/clip-ViT-B-16
 k: 32
 inner_params:
 - opt_model.model.decoder.layers.29.fc1.weight
@@ -50,7 +49,7 @@ use_all_negatives: False
 freeze_cntr: False
 dist_heads: 1
 lora: null
-archive: null #/home/myh/EasyEdit-main/results/models/SERAC_MULTI/blip2_VQA #null
+archive: null
 
 batch_size: 1
 model_save_pt: 2000

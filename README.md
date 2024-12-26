@@ -17,10 +17,7 @@ ComprehendEdit focus on evaluate the edited model on in-domain samples, as shown
 
 <img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration_1.png" width="60%">
 
-## Getting Started
 ### Details of Dataset    
-The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DHUOgAewaMg?pwd=6phx).
-
 Here are some samples of ComprehendEdit:
 
 <img src="https://github.com/yaohui120/ComprehendEdit/blob/main/figs/illustration_2.png" width="60%">
@@ -91,11 +88,26 @@ The ratio of training data to test data in each task is approximately 3:1, and w
 
 This dataset is collected from several benchmarks using BLIP-2 OPT 2.7B and MiniGPT-4 7B. We recommand measuring the changes on top-10 prediction on locality samples before and after editing if you want to run other models on ComprehendEdit. We will update the results in months.
 
-### Import Dataset   
-Working in progress...
-### Evaluation
-Working in progress...
+## Getting Started
+The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DHUOgAewaMg?pwd=6phx). The project is built based on [EasyEdit](https://github.com/zjunlp/EasyEdit). The class ComprehendEdit is located in ComprehendEdit/easyeditor/dataset/ComprehendEdit.py, and you can import it just like E-VQA.
 
-The code is built based on the EasyEdit, thanks for the framework provided by [EasyEdit](https://github.com/zjunlp/EasyEdit)! The samples in ComprehendEdit comes from several datasets: [GQA](https://cs.stanford.edu/people/dorarad/gqa/index.html), [TallyQA](https://github.com/manoja328/TallyQA_dataset), [VSR](https://github.com/cambridgeltl/visual-spatial-reasoning), [TextVQA](https://textvqa.org/), [MathVista](https://github.com/lupantech/MathVista), [OKVQA](https://okvqa.allenai.org/), and [NQ dataset](https://github.com/google-research-datasets/natural-questions). Thanks for these outstanding works!
+### Usage
+The conda environment is provided in EasyEdit [multimodal knowledge editing](https://github.com/zjunlp/EasyEdit/blob/main/examples/MMEdit.md), and the links of the pretrained model weights are provided in [VLKEB](https://github.com/VLKEB/VLKEB/tree/main).
+
+To run the code, you can use the following command:
+```
+sh run_multi.sh # or python3 multimodal_edit_our.py
+```
+And you can change the algorithm name in multimodal_edit_our.py to run other models. For example, 
+```
+train_HICE(model='blip2', train=True)
+```
+this code means we will train HICE based on BLIP-2 OPT 2.7B. After training, you can just change train=False to evaluate the model.
+
+Besides, you can also change the hyperparameters yamls in [ComprehendEdit/hparams](https://github.com/yaohui120/ComprehendEdit/tree/main/hparams). For example, your can change the [ComprehendEdit/hparams/TRAINING/HICE/minigpt4.yaml](https://github.com/yaohui120/ComprehendEdit/blob/main/hparams/TRAINING/HICE/minigpt4.yaml) to decide run the code on different gpus, change the path of pretrained model and so on. In yaml files, **gpu_used_id** and **gpu_split** are used to split the model to different gpus.
+
+If you want to run experiments on one gpu, you can set **model_parallel=False** and **gpu_split=[]**. If you want to run experiments on other models, you can add the model setting in [ComprehendEdit/easyeditor/util/tools.py](https://github.com/yaohui120/ComprehendEdit/blob/main/easyeditor/util/tools.py) to support the model. (using device_map="auto" simply may cause out-of-memory on the main gpu if the dataset is too large, running on too many gpus will waste the gpus and need more time.)
+
+Thanks for the framework provided by [EasyEdit](https://github.com/zjunlp/EasyEdit)! The samples in ComprehendEdit comes from several datasets: [GQA](https://cs.stanford.edu/people/dorarad/gqa/index.html), [TallyQA](https://github.com/manoja328/TallyQA_dataset), [VSR](https://github.com/cambridgeltl/visual-spatial-reasoning), [TextVQA](https://textvqa.org/), [MathVista](https://github.com/lupantech/MathVista), [OKVQA](https://okvqa.allenai.org/), and [NQ dataset](https://github.com/google-research-datasets/natural-questions). Thanks for these outstanding works!
 
 Please cite our paper if you use ComprehendEdit in your work.

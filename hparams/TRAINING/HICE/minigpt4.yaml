@@ -2,8 +2,8 @@
 device: 0
 model_parallel: true
 gpu_used_id: [0, 1, 2] # [0, 1, 2]
-gpu_split: ['layers.6', 'layers.19'] #['layers.2', 'layers.13', 'layers.24'] # ['layers.4', 'layers.13', 'layers.22'] # ['layers.11', 'layers.27']
-task: comprehendedit # GQA, TextVQA, SQA, POPE, VQA or Cap
+gpu_split: ['layers.6', 'layers.19']
+task: comprehendedit # vqa, comprehendedit
 
 name: /home/myh/hugging_cache/Vicuna-7b1
 model_name: minigpt4
@@ -48,7 +48,7 @@ use_all_negatives: False
 freeze_cntr: False
 dist_heads: 1
 lora: null
-archive: null #/home/myh/EasyEdit-main/results/models/SERAC_MULTI/minigpt4_VQA # null
+archive: null
 
 batch_size: 1
 model_save_pt: 5000

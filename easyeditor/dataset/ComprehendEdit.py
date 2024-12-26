@@ -50,7 +50,7 @@ class ComprehendEdit(BaseDataset):
         self.mode = 'train'
         if 'mode' in kwargs.keys():
             self.mode = kwargs['mode']
-        save_dir = '/home/myh/EasyEdit/data_our'
+        save_dir = './data_our'
 
         self.prompt = {'gqa': "Question: {} Short answer:",
                        'tallyqa': "Question: {} Answer with a number. Short answer:",

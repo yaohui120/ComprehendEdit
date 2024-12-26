@@ -23,17 +23,6 @@ data_dir = {
     'comprehendedit': '/home/myh/EasyEdit-main/published_version/ComprehendEdit',
 }
 
-def write_list_to_json(list, json_file_name, json_file_save_path):
-    """
-    将list写入到json文件
-    :param list:
-    :param json_file_name: 写入的json文件名字
-    :param json_file_save_path: json文件存储路径
-    :return:
-    """
-    os.chdir(json_file_save_path)
-    with open(json_file_name, 'w') as  f:
-        json.dump(list, f)
 
 def print_result(metrics):
     if 'rewrite_acc' in metrics[0]['post'].keys():
@@ -268,7 +257,7 @@ def train_HICE(model='blip2', train=True):
         trainer.model.train_classifier(trainer.train_loader, trainer.val_loader)
     else:
         # test like ike
-        hparams = IKEMultimodalHyperParams.from_hparams('/home/myh/EasyEdit/hparams/TRAINING/HICE/{}_test.yaml'.format(model))
+        hparams = IKEMultimodalHyperParams.from_hparams('hparams/TRAINING/HICE/{}_test.yaml'.format(model))
         hparams.alg_name = "HICE"
         hparams.model_parallel = True # if model parallel manually
         hparams.gpu_used_id = [] if hparams.model_name == 'blip2' else []
@@ -288,9 +277,9 @@ def train_HICE(model='blip2', train=True):
 def print_res(file, tok, daxiaoxie = False):
     for i in range(1, 5):
         res = torch.load(file)
-        res = print_result_k(res, tok, daxiaoxie, i) # 处理空格
+        res = print_result_k(res, tok, daxiaoxie, i)
         # res = torch.load(file)
-        # res = print_result_k(res, tok, daxiaoxie, i, ori=True) # 不处理空格)
+        # res = print_result_k(res, tok, daxiaoxie, i, ori=True)
 
 
 if __name__ == "__main__":

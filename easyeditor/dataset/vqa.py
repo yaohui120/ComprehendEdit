@@ -48,7 +48,7 @@ class VQADataset(BaseDataset):
         self.mode = 'train'
         if 'mode' in kwargs.keys():
             self.mode = kwargs['mode'].replace('test', 'eval')
-        save_dir = '/home/myh/EasyEdit/data_our'
+        save_dir = './data_our'
 
         self.prompt = "Question: {} Short answer:"
 

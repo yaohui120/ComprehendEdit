@@ -81,9 +81,6 @@ The details of ComprehendEdit is shown in following table:
 | Scene Information    | 2,067  | 787  | GQA      |
 | Numerical Inference  | 1,709  | 530  | VSR      |
 | Spatial Relationship | 1,554  | 519  | TextVQA  |
-
-
-
 | Text Recognition     | 634   | 212  | MathVista|
 | Total                | 13,450 | 4,482 |          |
 

@@ -89,7 +89,7 @@ The ratio of training data to test data in each task is approximately 3:1, and w
 This dataset is collected from several benchmarks using BLIP-2 OPT 2.7B and MiniGPT-4 7B. We recommand measuring the changes on top-10 prediction on locality samples before and after editing if you want to run other models on ComprehendEdit. We will update the results in months.
 
 ## Getting Started
-The dataset can be downloaded from [this](https://pan.baidu.com/s/1T5wiMCUlil9DHUOgAewaMg?pwd=6phx). The project is built based on [EasyEdit](https://github.com/zjunlp/EasyEdit). The class ComprehendEdit is located in ComprehendEdit/easyeditor/dataset/ComprehendEdit.py, and you can import it just like E-VQA.
+The dataset can be downloaded from [baiduyun](https://pan.baidu.com/s/1rbYqiD4WYKDKy723lGJw1A?pwd=r6fi) or [google driver](https://drive.google.com/file/d/1zG4NrQDWdd5TvzfGIkFC2FQ66Me42aZZ/view?usp=sharing). The project is built based on [EasyEdit](https://github.com/zjunlp/EasyEdit). The class ComprehendEdit is located in ComprehendEdit/easyeditor/dataset/ComprehendEdit.py, and you can import it just like E-VQA.
 
 ### Usage
 The conda environment is provided in EasyEdit [multimodal knowledge editing](https://github.com/zjunlp/EasyEdit/blob/main/examples/MMEdit.md), and the links of the pretrained model weights are provided in [VLKEB](https://github.com/VLKEB/VLKEB/tree/main).

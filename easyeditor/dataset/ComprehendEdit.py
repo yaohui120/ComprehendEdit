@@ -176,10 +176,10 @@ class ComprehendEdit(BaseDataset):
                     edit_inner['ori_pred_minigpt4'] = np.array(test_data[step]['ori_pred_minigpt4'])
                     if self.config.model_name == "minigpt4" or self.config.model_name == "blip2":
                         edit_inner['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(s), add_special_tokens=False)) for s, source in zip(src, sources)]
-                        edit_inner['labels'] = self.tok.encode(trg, add_special_tokens=False, return_tensors="pt",)
+                        edit_inner['labels'] = self.tok(trg, add_special_tokens=False, return_tensors="pt",)['input_ids']
                     else:
                         edit_inner['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(s))) for s, source in zip(src, sources)]
-                        edit_inner['labels'] = self.tok.encode(trg, return_tensors="pt",)
+                        edit_inner['labels'] = self.tok(trg, return_tensors="pt",)['input_ids']
                     self.all_edit_inner.append(edit_inner)
                 torch.save(self.all_edit_inner, path)
 
@@ -210,10 +210,10 @@ class ComprehendEdit(BaseDataset):
                     edit_inner['ori_pred_minigpt4'] = np.array(sample['ori_pred_minigpt4'])
                     if self.config.model_name == "minigpt4" or self.config.model_name == "blip2":
                         edit_inner['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(s), add_special_tokens=False)) for s, source in zip(src, sources)]
-                        edit_inner['labels'] = self.tok.encode(trg, add_special_tokens=False, return_tensors="pt",)
+                        edit_inner['labels'] = self.tok(trg, add_special_tokens=False, return_tensors="pt",)['input_ids']
                     else:
                         edit_inner['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(s))) for s, source in zip(src, sources)]
-                        edit_inner['labels'] = self.tok.encode(trg, return_tensors="pt",)
+                        edit_inner['labels'] = self.tok(trg, return_tensors="pt",)['input_ids']
                     self.ori_right.append(edit_inner)
                 torch.save(self.ori_right, path)
         self._data = data
@@ -289,10 +289,10 @@ class ComprehendEdit(BaseDataset):
         edit_inner['text_labels'] = trg
         if self.config.model_name == "minigpt4" or self.config.model_name == "blip2":
             edit_inner['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(s), add_special_tokens=False)) for s, source in zip(src, sources)]
-            edit_inner['labels'] = self.tok.encode(trg, add_special_tokens=False, return_tensors="pt",)
+            edit_inner['labels'] = self.tok(trg, add_special_tokens=False, return_tensors="pt",)['input_ids']
         else:
             edit_inner['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(s))) for s, source in zip(src, sources)]
-            edit_inner['labels'] = self.tok.encode(trg, return_tensors="pt",)
+            edit_inner['labels'] = self.tok(trg, return_tensors="pt",)['input_ids']
         edit_inner['image_path'] = [b['image_path'] for b in batch]
         edit_inner['ori_qs'] = src
         edit_inner['pid'] = [b['pid'] for b in batch]
@@ -345,10 +345,10 @@ class ComprehendEdit(BaseDataset):
         edit_outer['labels'] = trg
         if self.config.model_name == "minigpt4" or self.config.model_name == "blip2":
             edit_outer['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(r), add_special_tokens=False)) for r, source in zip(rephrase, sources)]
-            edit_outer['labels'] = self.tok.encode(trg, add_special_tokens=False, return_tensors="pt",) # 这里是['pouch']的encode结果，和推理时用的'pouch'的encode结果不一样
+            edit_outer['labels'] = self.tok(trg, add_special_tokens=False, return_tensors="pt",)['input_ids']
         else:
             edit_outer['prompts_len'] = [len(self.tok.encode(self.prompt[source].format(r))) for r, source in zip(rephrase, sources)]
-            edit_outer['labels'] = self.tok.encode(trg, return_tensors="pt",)
+            edit_outer['labels'] = self.tok(trg, return_tensors="pt",)['input_ids']
         edit_outer['cat'] = 'rephrase'
         edit_outer['prompt'] = rephrase
         edit_outer['target'] = trg
@@ -375,10 +375,10 @@ class ComprehendEdit(BaseDataset):
         loc['labels'] = loc_a
         if self.config.model_name == "minigpt4" or self.config.model_name == "blip2":
             loc['prompts_len'] = [len(self.tok.encode(q, add_special_tokens=False)) for q in loc_q]
-            loc['labels'] = self.tok.encode(loc_a, add_special_tokens=False, return_tensors="pt",)
+            loc['labels'] = self.tok(loc_a, add_special_tokens=False, return_tensors="pt",)['input_ids']
         else:
             loc['prompts_len'] = [len(self.tok.encode(q)) for q in loc_q]
-            loc['labels'] = self.tok.encode(loc_a, return_tensors="pt",)
+            loc['labels'] = self.tok(loc_a, return_tensors="pt",)['input_ids']
         loc['locality_prompt'] = loc_q
         loc['prompt'] = loc_q
         loc['target'] = loc_a
@@ -395,10 +395,10 @@ class ComprehendEdit(BaseDataset):
         loc_image['labels'] = m_loc_a
         if self.config.model_name == "minigpt4" or self.config.model_name == "blip2":
             loc_image['prompts_len'] = [len(self.tok.encode(self.prompt['gqa'].format(q), add_special_tokens=False)) for q in m_loc_q]
-            loc_image['labels'] = self.tok.encode(m_loc_a, add_special_tokens=False, return_tensors="pt",)
+            loc_image['labels'] = self.tok(m_loc_a, add_special_tokens=False, return_tensors="pt",)['input_ids']
         else:
             loc_image['prompts_len'] = [len(self.tok.encode(self.prompt['gqa'].format(q))) for q in m_loc_q]
-            loc_image['labels'] = self.tok.encode(m_loc_a, return_tensors="pt",)
+            loc_image['labels'] = self.tok(m_loc_a, return_tensors="pt",)['input_ids']
         loc_image['multimodal_locality_prompt'] = m_loc_q
         loc_image['prompt'] = m_loc_q
         loc_image['target'] = m_loc_a

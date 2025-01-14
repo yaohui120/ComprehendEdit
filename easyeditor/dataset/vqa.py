@@ -59,7 +59,7 @@ class VQADataset(BaseDataset):
         if size is not None:
             self.annotation = self.annotation[:size]
         
-        path = os.path.join(save_dir, 'ComprehendEdit_{}_{}.pth'.format(self.mode, config.tokenizer_class))
+        path = os.path.join(save_dir, 'E-VQA_{}_{}.pth'.format(self.mode, config.tokenizer_class))
         if os.path.exists(path):
             data = torch.load(path)
             print('Loaded datasets from {}'.format(path))

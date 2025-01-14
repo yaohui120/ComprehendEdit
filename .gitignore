@@ -12,3 +12,4 @@ scripts
 *.pth
 *.txt
 debug
+data_our
